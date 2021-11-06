@@ -6,11 +6,12 @@ const Search = () => {
     return (
         <Wrapper>
             {/* Button Container */}
-            <Link href="/">
-                <ButtonContainer>
+            <ButtonContainer>
+                <Link href="/">
                     <BackButton src="https://img.icons8.com/ios-filled/50/000000/left.png" />
-                </ButtonContainer>
-            </Link>
+                 </Link>
+            </ButtonContainer>
+           
             {/* Input Container */}
             <InputContainer>
                 <FromToIcon>
@@ -32,9 +33,9 @@ const Search = () => {
             </SavedPlaces>
 
             {/* Confirm Location */}
-            <ConfirmLoccation>
-                <Location>Confirm Locations</Location>
-            </ConfirmLoccation>
+            <ConfirmButtonContainer>
+                Confirm Locations
+            </ConfirmButtonContainer>
 
         </Wrapper>
     )
@@ -50,7 +51,7 @@ const ButtonContainer = tw.div`
 `
 
 const BackButton = tw.img`
- h-12 px-4 transform hover:scale-110 transition
+ h-12 px-4 transform hover:scale-110 transition cursor-pointer
 `
 
 const InputContainer = tw.div`
@@ -92,10 +93,6 @@ const StarIcon = tw.img`
  w-10 h-10 bg-gray-400 rounded-full p-2 mr-2
 `
 
-const ConfirmLoccation = tw.div`
-flex bg-black px-4 py-1 mt-2 m-4 
-`
-
-const Location = tw.div`
- text-white px-20
+const ConfirmButtonContainer = tw.div`
+bg-black text-white  px-4 py-3 mt-2 mx-4 text-center text-2xl cursor-pointer
 `
