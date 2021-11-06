@@ -1,14 +1,19 @@
 import { useEffect, useState } from 'react'
 import tw from "tailwind-styled-components";
-import Map from './components/Map'
+import Map from './components/Map';
+import { useRouter } from 'next/router';
+import RideSelector from './components/RideSelector';
 
 const Confirm = () => {
+    const router = useRouter();
+    const { pickup, dropoff } = router.query
+
 
     const [pickupCoordinates, setPickupCoordinates] = useState();
     const [dropoffCoordinates, setdropoffCoordinates] = useState();
 
-    const getPickupCoordinates = () => {
-        const pickup = "Santa Monica";
+    const getPickupCoordinates = (pickup) => {
+        
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${pickup}.json?` +
             new URLSearchParams({
                 access_token: "pk.eyJ1Ijoic2Vnd3Vvbnd1IiwiYSI6ImNrNnYwZHJlYjBmcWwzZm84eDAxeXdtYWwifQ.UG40rvdnJvyUaEgeQibK9Q",
@@ -21,8 +26,8 @@ const Confirm = () => {
         })
     }
 
-    const getDropoffCoordinates = () => {
-        const dropoff = "Los Angeles";
+    const getDropoffCoordinates = (dropoff) => {
+        
         fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${dropoff}.json?` +
             new URLSearchParams({
                 access_token: "pk.eyJ1Ijoic2Vnd3Vvbnd1IiwiYSI6ImNrNnYwZHJlYjBmcWwzZm84eDAxeXdtYWwifQ.UG40rvdnJvyUaEgeQibK9Q",
@@ -36,9 +41,9 @@ const Confirm = () => {
     }
 
     useEffect(() => {
-        getPickupCoordinates();
-        getDropoffCoordinates();
-    }, [])
+        getPickupCoordinates(pickup);
+        getDropoffCoordinates(dropoff);
+    }, [pickup, dropoff])
 
     return (
         <Wrapper>
@@ -47,8 +52,13 @@ const Confirm = () => {
                 dropoffCoordinates={dropoffCoordinates}
             />
             <RideContainer>
-                Ride selector
-                Confirm Button
+                <RideSelector />
+            
+                <ConfirmButtonContainer>
+                    <ConfirmButton>
+                        Confirm UberX
+                    </ConfirmButton>
+                </ConfirmButtonContainer>
                 
             </RideContainer>
         </Wrapper>
@@ -62,5 +72,13 @@ flex h-screen flex-col
 `
 
 const RideContainer = tw.div`
-flex-1 
+flex-1 flex flex-col h-1/2
+`
+
+const ConfirmButtonContainer = tw.div`
+border-t-2
+`
+
+const ConfirmButton = tw.div`
+bg-black text-white my-4 mx-4 text-center py-4
 `
